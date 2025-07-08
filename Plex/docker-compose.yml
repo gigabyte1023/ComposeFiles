@@ -1,0 +1,26 @@
+---
+version: '3.8'  # Specify the version of the Docker Compose file format
+
+services:
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    hostname: les-noches
+    ports:
+      - "32400:32400/tcp"
+      - "8324:8324/tcp"
+      - "32469:32469/tcp"
+      - "1900:1900/udp"
+      - "32410:32410/udp"
+      - "32412:32412/udp"
+      - "32413:32413/udp"
+      - "32414:32414/udp"
+    environment:
+      - TZ=America/Indiana/Indianapolis
+      - PLEX_CLAIM=<go to "https://www.plex.tv/claim" for claim token>
+      - ADVERTISE_IP=http://10.0.0.197:32400/
+    volumes:
+      - /data/Plex:/config
+      - /data/plex-transco:/transcode
+      - /mnt/Media:/data
+    restart: unless-stopped  # Optional: restart policy
